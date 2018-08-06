@@ -283,12 +283,10 @@
     {
         $('#quoteForm').on('submit', function (e) {
             e.preventDefault();
-            $('#q_submit').val('Processing...');
-            var q_name = $('#q_name').val(),
-                    q_email = $('#q_email').val(),
-                    q_phone = $('#q_phone').val(),
-                    q_msg = $('#q_msg').val(),
-                    required = 0;
+            var $submit = $('#q_submit');
+            var $form = $(this);
+            $submit.val('Processing...');
+            var required = 0;
             $('.required', this).each(function () {
                 if ($(this).val() == '')
                 {
@@ -306,23 +304,36 @@
                 }
             });
             if (required === 0) {
+
+              var data = new FormData($form[0]);
+              var formName = $submit.find('[name="form"]').val();
+              data.append('form', formName);
+
+
                 $.ajax({
-                    type: "POST",
-                    url: 'php/mail.php',
-                    data: {
-                        q_name: q_name,
-                        q_email: q_email,
-                        q_phone: q_phone,
-                        q_msg: q_msg
-                    },
-                    success: function () {
-                        $('#quoteForm input, #quoteForm textarea').val('');
-                        $("#q_submit").val('Done!');
+                  url: '/mail/mail.php',
+                  type: "POST",
+                  data: data,
+                  dataType: 'json',
+                  processData: false,
+                  contentType: false,
+                  cache: false,
+                  success: function success(data) {
+                    if (!data.success) {
+                      var error = "Возникли проблемы с сервером. Сообщите нам о ошибке, мы постараемся устранить её в ближайшее время.";
+                      console.log(error);
+                    } else if (data.success) {
+                      $submit.trigger("reset");
+                      $submit.val('Done!');
                     }
+                  },
+                  error: function error(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(textStatus || errorThrown);
+                  }
                 });
             } else
             {
-                $("#q_submit").val('Failed!');
+                $submit.val('Failed!');
             }
         });
         $(".required").on('keyup', function () {
@@ -364,11 +375,8 @@
         $('#contactForm').on('submit', function (e) {
             e.preventDefault();
             $('#con_submit').val('Processing...');
-            var con_name = $('#con_name').val(),
-                    con_email = $('#con_email').val(),
-                    con_phone = $('#con_phone').val(),
-                    con_msg = $('#con_msg').val(),
-                    required = 0;
+            var required = 0;
+            var $form = $(this);
             $('.required', this).each(function () {
                 if ($(this).val() == '') {
                     $(this).addClass('reqError');
@@ -383,22 +391,32 @@
                 }
             });
             if (required === 0) {
+
+              var data = new FormData($form[0]);
+              var formName = $submit.find('[name="form"]').val();
+              data.append('form', formName);
+
+
                 $.ajax({
-                    type: 'POST',
-                    url: 'php/mail.php',
-                    data: ({
-                        con_name: con_name,
-                        con_email: con_email,
-                        con_phone: con_phone,
-                        con_msg: con_msg
-                    }),
-                    success: function (data) {
-
-                        alert(data);
-                        $('#contactForm input, #contactForm textarea').val('');
-                        $("#con_submit").val('Done!');
+                  url: '/mail/mail.php',
+                  type: "POST",
+                  data: data,
+                  dataType: 'json',
+                  processData: false,
+                  contentType: false,
+                  cache: false,
+                  success: function success(data) {
+                    if (!data.success) {
+                      var error = "Возникли проблемы с сервером. Сообщите нам о ошибке, мы постараемся устранить её в ближайшее время.";
+                      console.log(error);
+                    } else if (data.success) {
+                      $submit.trigger("reset");
+                      $submit.val('Done!');
                     }
-
+                  },
+                  error: function error(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(textStatus || errorThrown);
+                  }
                 });
             } else {
                 $('#con_submit').val('Failed !');
@@ -594,7 +612,7 @@
         });
         if ($(window).width() < 767)
         {
-            $('.mainNav > ul li.has-menu-items > a[href="#"], .mainNav2 > ul li.has-menu-items > a[href="#"]').on('click', function (e) {
+            $('.mainNav > ul li.has-menu-items > a:not([href]), .mainNav2 > ul li.has-menu-items > a:not([href])').on('click', function (e) {
                 e.preventDefault();
                 $(this).parent().toggleClass('active');
                 $(this).parent().children('.sub-menu').slideToggle('slow');

@@ -441,6 +441,7 @@
 }
 .quoteFooter input[type="text"],
 .quoteFooter input[type="email"],
+.quoteFooter input[type="tel"],
 .quoteFooter textarea{
     height: 50px;
     background: #34313f;
@@ -460,30 +461,35 @@
 }
 .quoteFooter input[type="text"]:input-placeholder,
 .quoteFooter input[type="email"]:input-placeholder,
+.quoteFooter input[type="tel"]:input-placeholder,
 .quoteFooter textarea:input-placeholder{
     color: #808080;
     opacity: 1;
 }
 .quoteFooter input[type="text"]::-webkit-input-placeholder,
 .quoteFooter input[type="email"]::-webkit-input-placeholder,
+.quoteFooter input[type="tel"]::-webkit-input-placeholder,
 .quoteFooter textarea::-webkit-input-placeholder{
     color: #808080;
     opacity: 1;
 }
 .quoteFooter input[type="text"]:-moz-placeholder ,
 .quoteFooter input[type="email"]:-moz-placeholder ,
+.quoteFooter input[type="tel"]:-moz-placeholder ,
 .quoteFooter textarea:-moz-placeholder {
     color: #808080;
     opacity: 1;
 }
 .quoteFooter input[type="text"]::-moz-placeholder,
 .quoteFooter input[type="email"]::-moz-placeholder,
+.quoteFooter input[type="tel"]::-moz-placeholder,
 .quoteFooter textarea::-moz-placeholder{
     color: #808080;
     opacity: 1;
 }
 .quoteFooter input[type="text"]:-ms-input-placeholder,
 .quoteFooter input[type="email"]:-ms-input-placeholder,
+.quoteFooter input[type="tel"]:-ms-input-placeholder,
 .quoteFooter textarea:-ms-input-placeholder{
     color: #808080;
     opacity: 1;
@@ -491,6 +497,7 @@
 
 .quoteFooter input[type="text"].reqError,
 .quoteFooter input[type="email"].reqError,
+.quoteFooter input[type="tel"].reqError,
 .quoteFooter textarea.reqError{
     border: 1px solid #e43d4e;
 }
@@ -2675,6 +2682,7 @@
     margin-bottom: 10px;
 }
 .commForm input[type="email"],
+.commForm input[type="tel"],
 .commForm input[type="text"] {
     float: left;
     width: 32.2%;

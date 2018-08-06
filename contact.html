@@ -158,10 +158,12 @@
                         <div class="col-lg-6 col-lg-offset-3">
                             <div class="contactForm text-center">
                                 <form action="#" method="post" id="contactForm">
-                                    <input type="text" placeholder="Имя" name="con_name" id="con_name" class="required">
-                                    <input type="email" placeholder="Email" name="con_email" id="con_email" class="required">
-                                    <input type="text" placeholder="Телефон" name="con_phone" id="con_phone" class="required">
-                                    <textarea placeholder="Сообщение" name="con_msg" id="con_msg" class="required"></textarea>
+                                    <input type="text" placeholder="Имя" name="name" id="con_name" class="required">
+                                    <input type="email" placeholder="Email" name="email" id="con_email" class="required">
+                                    <input type="tel" placeholder="Телефон" name="phone" id="con_phone" class="required">
+                                    <textarea placeholder="Сообщение" name="message" id="con_msg" class="required"></textarea>
+                                    <input type="hidden" name="form" value="Контакты" />
+
                                     <input type="submit" class="painButton" id="con_submit" value="Отправить">
                                 </form>
                             </div>
