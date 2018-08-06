@@ -116,8 +116,8 @@
         var map;
         map = new GMaps({
             el: '#map',
-            lat: 53.967015,
-            lng: -1.079608,
+            lat: 46.6045474,
+            lng: 30.9592434,
             scrollwheel: false,
             zoom: 16,
             zoomControl: true,
@@ -129,8 +129,8 @@
         });
         var image = '';
         map.addMarker({
-            lat: 53.967015,
-            lng: -1.079608,
+            lat: 46.6045474,
+            lng: 30.9592434,
             icon: 'images/marker.png',
             animation: google.maps.Animation.DROP,
             verticalAlign: 'bottom',
@@ -184,8 +184,8 @@
         var map;
         map = new GMaps({
             el: '#map2',
-            lat: 53.967015,
-            lng: -1.079608,
+            lat: 46.6045474,
+            lng: 30.9592434,
             scrollwheel: false,
             zoom: 16,
             zoomControl: true,
@@ -197,9 +197,9 @@
         });
         var image = '';
         map.addMarker({
-            lat: 53.967015,
-            lng: -1.079608,
-            icon: 'images/marker2.png',
+            lat: 46.6045474,
+            lng: 30.9592434,
+            icon: 'images/marker.png',
             animation: google.maps.Animation.DROP,
             verticalAlign: 'bottom',
             horizontalAlign: 'center',
