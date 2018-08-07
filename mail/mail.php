@@ -1,15 +1,20 @@
 <?php
 
-  if (is_file('lib/class.phpmailer.php')) {
-    require_once("lib/class.phpmailer.php");
+  if (is_file('./lib/Exception.php')) {
+    require_once("./lib/Exception.php");
   }
   
-  if (is_file('lib/class.smtp.php')) {
-    require_once("lib/class.smtp.php");
+  if (is_file('./lib/PHPMailer.php')) {
+    require_once("./lib/PHPMailer.php");
   }
   
-  if (is_file('lib/newsletter.php')) {
-    require_once("lib/newsletter.php");
+  
+  if (is_file('./lib/SMTP.php')) {
+    require_once("./lib/SMTP.php");
+  }
+  
+  if (is_file('./lib/newsletter.php')) {
+    require_once("./lib/newsletter.php");
   }
 
   $http_host = $_SERVER["HTTP_HOST"];
@@ -104,23 +109,37 @@
     $body .= $value['key'] . $value['value'] . chr(10) . chr(13);
   }
 
-  $mail = new PHPMailer();
-  $mail->CharSet = "UTF-8";
-  $mail->IsSendmail();
 
-  $from = "no-repeat@" . HOST_NAME;
-  $mail->SetFrom($from, HOST_NAME);
-  $mail->AddAddress("Artem2431@gmail.com");
-  $mail->isHTML(true);
-  $mail->Subject      = HOST_NAME;
-  $NewsLetterClass    = new NewsLetterClass();
-  $mail->Body         = $NewsLetterClass->generateHTMLLetter($data);
-  $mail->AltBody      = $body;
+  $mail = new PHPMailer\PHPMailer\PHPMailer();              // Passing `true` enables exceptions
+  try {
+        //Server settings
+    $mail->CharSet = "UTF-8";
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = 'paintballphoenix.odessa@gmail.com';                 // SMTP username
+    $mail->Password = 'ghjtrn9ghjtrn9';                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 587;                                    // TCP port to connect to
 
-  if(!$mail->send()) {
-    echo "Что-то пошло не так. " . $mail->ErrorInfo;
-    return false;
-  } else {
-    return true;
+    $mail->SetFrom('paintballphoenix.odessa@gmail.com', 'Paintball Phoenix');
+    $mail->AddAddress($post["user_email"]);
+
+    //Content
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject      = 'Admin@' . HOST_NAME;
+    $NewsLetterClass    = new NewsLetterClass();
+    $mail->Body         = $NewsLetterClass->generateHTMLLetter($data);
+    $mail->AltBody      = $body;
+
+    if(!$mail->send()) {
+      echo "Что-то пошло не так. " . $mail->ErrorInfo;
+      return false;
+    } else {
+      echo json_encode(array("success" => true));
+      return true;
+    }
+  } catch (Exception $e) {
+      echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
   }
 ?>
