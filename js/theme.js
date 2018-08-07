@@ -319,13 +319,8 @@
                   contentType: false,
                   cache: false,
                   success: function success(data) {
-                    if (!data.success) {
-                      var error = "Возникли проблемы с сервером. Сообщите нам о ошибке, мы постараемся устранить её в ближайшее время.";
-                      console.log(error);
-                    } else if (data.success) {
-                      $submit.trigger("reset");
-                      $submit.val('Done!');
-                    }
+                    $submit.trigger("reset");
+                    $submit.val('Done!');
                   },
                   error: function error(XMLHttpRequest, textStatus, errorThrown) {
                     console.log(textStatus || errorThrown);
@@ -406,13 +401,8 @@
                   contentType: false,
                   cache: false,
                   success: function success(data) {
-                    if (!data.success) {
-                      var error = "Возникли проблемы с сервером. Сообщите нам о ошибке, мы постараемся устранить её в ближайшее время.";
-                      console.log(error);
-                    } else if (data.success) {
-                      $submit.trigger("reset");
-                      $submit.val('Done!');
-                    }
+                    $submit.trigger("reset");
+                    $submit.val('Done!');
                   },
                   error: function error(XMLHttpRequest, textStatus, errorThrown) {
                     console.log(textStatus || errorThrown);

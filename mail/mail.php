@@ -111,7 +111,6 @@
   $from = "no-repeat@" . HOST_NAME;
   $mail->SetFrom($from, HOST_NAME);
   $mail->AddAddress("Artem2431@gmail.com");
-  $mail->AddAddress($post["user_email"]);
   $mail->isHTML(true);
   $mail->Subject      = HOST_NAME;
   $NewsLetterClass    = new NewsLetterClass();
@@ -122,7 +121,6 @@
     echo "Что-то пошло не так. " . $mail->ErrorInfo;
     return false;
   } else {
-    echo json_encode(array("success" => "Сообщение успешно отправлено"), JSON_FORCE_OBJECT);
     return true;
   }
 ?>
