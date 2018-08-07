@@ -306,8 +306,6 @@
             if (required === 0) {
 
               var data = new FormData($form[0]);
-              var formName = $submit.find('[name="form"]').val();
-              data.append('form', formName);
 
 
                 $.ajax({
@@ -318,6 +316,12 @@
                   processData: false,
                   contentType: false,
                   cache: false,
+                  beforeSend() {
+                    $submit.prop('disabled', true)
+                  },
+                  complete() {
+                    $submit.prop('disabled', false)
+                  },
                   success: function success(data) {
                     $submit.trigger("reset");
                     $submit.val('Done!');
@@ -369,7 +373,9 @@
     if ($('#contactForm').length > 0) {
         $('#contactForm').on('submit', function (e) {
             e.preventDefault();
-            $('#con_submit').val('Processing...');
+            var $submit = $('#con_submit');
+            var $form = $(this);
+            $submit.val('Processing...');
             var required = 0;
             var $form = $(this);
             $('.required', this).each(function () {
@@ -388,9 +394,6 @@
             if (required === 0) {
 
               var data = new FormData($form[0]);
-              var formName = $submit.find('[name="form"]').val();
-              data.append('form', formName);
-
 
                 $.ajax({
                   url: '/mail/mail.php',
@@ -399,7 +402,13 @@
                   dataType: 'json',
                   processData: false,
                   contentType: false,
-                  cache: false,
+                  cache: false,        
+                  beforeSend() {
+                    $submit.prop('disabled', true)
+                  },
+                  complete() {
+                    $submit.prop('disabled', false)
+                  },
                   success: function success(data) {
                     $submit.trigger("reset");
                     $submit.val('Done!');
@@ -409,7 +418,7 @@
                   }
                 });
             } else {
-                $('#con_submit').val('Failed !');
+                $submit.val('Failed !');
             }
 
         });
